@@ -4,7 +4,7 @@ def bcffiler(bcf_file=None, svtype=None, \
                                            position=None, \
                                                 allelicdepth=None, \
                                                        readdepth=None):
-    """sumary_line
+    """summary_line
     a bcffilter for filtering the variants and it parses the variants in a 
     flash of a minute. you can filter the variants according to the svtype,
     filter_type, position, allelicdepth, readdepth and chromosome. 
