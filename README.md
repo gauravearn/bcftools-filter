@@ -1,6 +1,5 @@
 # longread_bcftools_filter
-making bcftools filtering easy. A rust based implementation of the bcftools which will allow for the faster filtering of the variant calls according to the allelic depth and the tags using simple to overlap approaches as compare to implementing the regular patterns. a bcffilter for filtering the variants and it parses the variants in a flash of a minute. you can filter the variants according to the svtype, filter_type, position, allelicdepth, readdepth and chromosome.
-A complete human genome parsed in less than 1 minute. 
+making bcftools filtering easy. implementation of the bcftools which will allow for the faster filtering of the variant calls according to the allelic depth and the tags using simple to overlap approaches as compared to implementing the regular patterns. a bcf filter for filtering the variants and it parses the variants in a flash of a minute. you can filter the variants according to the svtype, filter_type, position, allelicdepth, readdepth and chromosome. A complete human genome parsed in less than 1 minute the link to the data is also given. This is a demo dataset. I am releasing a new faster scala implementation which will be more faster than this and can parse the complete in a flick of a second.
 
 ```
 bcffiler(bcf_file="/Users/gauravsablok/Desktop/CodeCheck/broad/hs37d5.HG002-SequelII-CCS.bnd-only.sv.vcf", 
