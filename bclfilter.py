@@ -1,3 +1,4 @@
+import pandas as pd
 def bcffiler(bcf_file=None, svtype=None, \
                                filter=None, \
                                     chromosome=None, \
@@ -23,20 +24,23 @@ def bcffiler(bcf_file=None, svtype=None, \
     
     with open(bcf_file, "r") as openvcf:
         with open(bcf_file + "change", "w") as writevcf:
+            writevcf.write("CHROM" + "\t" + "POS"  + "\t" + "ID"  "\t" + "REF" + 
+                                         "\t" +  "ALT" +  "\t" + "QUAL" + "\t" + "FILTER" + 
+                                               "\t" +"INFO"  + "\t" + "FORMAT" + "\t" +"HG002""\n")
             for line in openvcf.readlines():
                 if line.startswith("#"):
                     continue
                 writevcf.write(line)
     read_vcf = pd.read_csv(bcf_file + "change", sep = "\t")
-    read_vcf["GT"] = read_vcf.iloc[::,9].apply(lambda n: n.split(":")[0].split("/"))
-    read_vcf["AD"] = read_vcf.iloc[::,9].apply(lambda n: n.split(":")[1])
-    read_vcf["DP"] = read_vcf.iloc[::,9].apply(lambda n: n.split(":")[2])  
-    read_vcf["structural_type"] = read_vcf.iloc[::,7].apply(lambda n: \
+    read_vcf["GT"] = read_vcf["HG002"].apply(lambda n: n.split(":")[0].split("/"))
+    read_vcf["AD"] = read_vcf["HG002"].apply(lambda n: n.split(":")[1])
+    read_vcf["DP"] = read_vcf["HG002"].apply(lambda n: n.split(":")[2])  
+    read_vcf["structural_type"] = read_vcf["INFO"].apply(lambda n: \
                                            str(n.split(";")[0])). \
                                                           apply(lambda n: n.replace("SVTYPE=", ""))
-    read_vcf["CIPOS"] = read_vcf.iloc[::,7].apply(lambda n: n.split(";")[1]). \
+    read_vcf["CIPOS"] = read_vcf["INFO"].apply(lambda n: n.split(";")[1]). \
                                                                  apply(lambda n: n.split("="))
-    read_vcf["mateID"] = read_vcf.iloc[::,7].apply(lambda n: n.split(";")[2]). \
+    read_vcf["mateID"] = read_vcf["INFO"].apply(lambda n: n.split(";")[2]). \
                                                                     apply(lambda n: n.split("="))
     if bcf_file and svtype:
         svtype_read = ["BND", "INV", "DUP", "CNV"]
@@ -47,11 +51,11 @@ def bcffiler(bcf_file=None, svtype=None, \
         filter_read = ["Decoy", "NearReferenceGap","NearContigEnd", \
                                         "InsufficientStrandEvidence", "NotFullySpanned"]
         filter_store = ''.join([i for i in filter_read if i == filter])
-        selected_filter_vcf = read_vcf.where(read_vcf.iloc[::,6] == filter_store).dropna()
+        selected_filter_vcf = read_vcf.where(read_vcf["FILTER"] == filter_store).dropna()
         return selected_filter_vcf
     if bcf_file and position:
        store_position = int(position)
-       selected_position = read_vcf.iloc[::].where(read_vcf.iloc[::,1] == store_position).dropna()
+       selected_position = read_vcf.iloc[::].where(read_vcf["POS"] == store_position).dropna()
        return selected_position
     if bcf_file and allelicdepth:
         store_allelic_depth = allelicdepth
