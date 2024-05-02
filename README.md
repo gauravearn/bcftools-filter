@@ -13,7 +13,7 @@ bcffiler(bcf_file="/Users/gauravsablok/Desktop/CodeCheck/broad/hs37d5.HG002-Sequ
 2	1	2368006.0	pbsv.BND.1:2368006-hs37d5:6505668	C	C]hs37d5:6505668]	.	Decoy	SVTYPE=DUP;CIPOS=-35,36;MATEID=pbsv.BND.hs37d5...	GT:AD:DP	0/1:9,2:11	[0, 1]	9,2	11	DUP	[CIPOS, -35,36]	[MATEID, pbsv.BND.hs37d5:6505668-1:2368006]
 ```
 
-Gaurav Sablok \
+Gaurav \
 Academic Staff Member \
 Bioinformatics \
 Institute for Biochemistry and Biology \
